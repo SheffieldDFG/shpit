@@ -18,6 +18,9 @@ or, if you prefer, `pip install -r requirements.txt`.
 
     python3 shp.py inputfile.shp
 
+The name of the CSV output file is the same as the input,
+with its extension replaced with `.csv`.
+
 ## Source
 
 https://github.com/SheffieldDFG/shpit

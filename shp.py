@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
 import csv
+import re
 import sys
 
 # https://anaconda.org/pelson/pyshp
 import shapefile
 
-def shp(filename):
+def shapefile_tuples(filename):
     sf = shapefile.Reader(filename)
     print(sf.shapeType)
     shapes = sf.shapes()
@@ -31,9 +32,16 @@ def main(argv=None):
 
     arg = argv[1:]
 
-    with open('output.csv', 'w', newline='') as outfile:
+    as_csv(arg[0])
+
+def as_csv(input_name):
+    output_name = re.sub(r'\.[^.]*$|$', '.csv', input_name)
+    if output_name == input_name:
+        raise Exception("Can't write output over input")
+
+    with open(output_name, 'w', newline='') as outfile:
         points = csv.writer(outfile)
-        for row in shp(arg[0]):
+        for row in shapefile_tuples(input_name):
             points.writerow(row)
 
 
