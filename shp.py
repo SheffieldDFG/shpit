@@ -10,10 +10,12 @@ import shapefile
 def shapefile_tuples(filename):
     sf = shapefile.Reader(filename)
     print(sf.shapeType)
-    shapes = sf.shapes()
-    print(len(shapes), "shapes")
-    for i,shape in enumerate(shapes):
-        yield from flat_shape(i, shape)
+    fields = sf.fields[1:]
+    srs = sf.shapeRecords()
+    print(len(srs), "shapes")
+    for i,sr in enumerate(srs):
+        for row in flat_shape(i, sr.shape):
+            yield row + tuple(sr.record)
 
 def flat_shape(shape_index, shape):
     parts = set(shape.parts) - set([0])
