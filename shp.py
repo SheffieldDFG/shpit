@@ -11,6 +11,9 @@ def shapefile_tuples(filename):
     sf = shapefile.Reader(filename)
 
     fields = sf.fields[1:]
+    fieldnames = [f[0] for f in fields]
+    yield ["shp_s", "shp_p", "shp_i", "x", "y"] + fieldnames
+
     srs = sf.shapeRecords()
     print(len(srs), "shapes")
     for i,sr in enumerate(srs):
