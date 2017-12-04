@@ -9,7 +9,7 @@ import shapefile
 
 def shapefile_tuples(filename):
     sf = shapefile.Reader(filename)
-    print(sf.shapeType)
+
     fields = sf.fields[1:]
     srs = sf.shapeRecords()
     print(len(srs), "shapes")
